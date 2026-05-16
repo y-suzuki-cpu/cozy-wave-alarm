@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0f0f14;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+#clock {
+  font-size: 5rem;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.card {
+  background: #1a1a24;
+  border: 1px solid #2e2e40;
+  border-radius: 20px;
+  padding: 36px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-width: 320px;
+}
+
+label {
+  font-size: 0.85rem;
+  color: #888;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+input[type="time"] {
+  background: #0f0f14;
+  border: 1px solid #3a3a52;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 2rem;
+  padding: 10px 20px;
+  text-align: center;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+input[type="time"]:focus {
+  border-color: #6c63ff;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+#set-btn {
+  background: #6c63ff;
+  color: #fff;
+}
+
+#set-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+#stop-btn {
+  background: #ff4f5e;
+  color: #fff;
+}
+
+#stop-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+#status {
+  font-size: 0.9rem;
+  color: #888;
+  min-height: 1.2em;
+}
+
+#status.active {
+  color: #6c63ff;
+}
+
+#status.ringing {
+  color: #ff4f5e;
+  animation: pulse 0.6s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  to   { opacity: 0.4; }
+}
+
+body.ringing {
+  animation: flash 0.5s infinite alternate;
+}
+
+@keyframes flash {
+  from { background: #0f0f14; }
+  to   { background: #2a0a10; }
+}

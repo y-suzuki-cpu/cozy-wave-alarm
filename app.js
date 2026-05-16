@@ -1,12 +1,33 @@
-const clockEl  = document.getElementById('clock');
-const inputEl  = document.getElementById('alarm-time');
-const setBtn   = document.getElementById('set-btn');
-const stopBtn  = document.getElementById('stop-btn');
-const statusEl = document.getElementById('status');
+const clockEl     = document.getElementById('clock');
+const inputEl     = document.getElementById('alarm-time');
+const setBtn      = document.getElementById('set-btn');
+const stopBtn     = document.getElementById('stop-btn');
+const statusEl    = document.getElementById('status');
+const secondsRing = document.getElementById('seconds-ring');
 
-let alarmTime   = null;
+const CIRCUMFERENCE = 2 * Math.PI * 130; // r=130 → ≈816.81
+
+let alarmTime    = null;
 let beepInterval = null;
-let audioCtx    = null;
+let audioCtx     = null;
+
+// Twinkling stars
+(function createStars() {
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * 100}vh;
+      width: ${size}px;
+      height: ${size}px;
+      animation-delay: ${(Math.random() * 4).toFixed(2)}s;
+      animation-duration: ${(Math.random() * 2 + 2).toFixed(2)}s;
+    `;
+    document.body.appendChild(s);
+  }
+})();
 
 function pad(n) {
   return String(n).padStart(2, '0');
@@ -17,7 +38,9 @@ function tick() {
   const hh = pad(now.getHours());
   const mm = pad(now.getMinutes());
   const ss = pad(now.getSeconds());
+
   clockEl.textContent = `${hh}:${mm}:${ss}`;
+  secondsRing.style.strokeDashoffset = CIRCUMFERENCE * (1 - now.getSeconds() / 60);
 
   if (alarmTime && `${hh}:${mm}` === alarmTime && ss === '00') {
     triggerAlarm();
